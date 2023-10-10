@@ -4,7 +4,6 @@ plugins {
     id ("androidx.navigation.safeargs")
     id ("com.google.devtools.ksp")
     id ("com.google.dagger.hilt.android")
-    id ("com.google.gms.google-services")
     id ("kotlin-kapt")
 }
 
@@ -14,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.stockapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -61,11 +60,12 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.5.2")
     annotationProcessor ("androidx.room:room-compiler:2.5.2")
     implementation ("androidx.room:room-runtime:2.5.2")
-    kapt ("androidx.room:room-compiler:2.5.2")
+    ksp ("androidx.room:room-compiler:2.5.2")
+    implementation ("androidx.room:room-ktx:2.5.2")
 
     implementation ("androidx.hilt:hilt-navigation-fragment:1.0.0")
     implementation ("com.google.dagger:hilt-android:2.47")
-    kapt ("com.google.dagger:hilt-compiler:2.47")
+    ksp ("com.google.dagger:hilt-compiler:2.47")
 
     implementation ("io.coil-kt:coil:2.4.0")
 
