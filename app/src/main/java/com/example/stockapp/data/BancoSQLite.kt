@@ -9,7 +9,7 @@ import kotlin.concurrent.Volatile
 @Database(entities = [Product::class], version = 1)
 abstract class BancoSQLite : RoomDatabase() {
 
-    abstract fun daoProduct(): DaoProduct
+    abstract fun productDao(): ProductDao
     companion object{
 
         @Volatile
@@ -22,7 +22,7 @@ abstract class BancoSQLite : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         BancoSQLite::class.java,
-                        "meu_banco.db"
+                        "stock.db"
                     ).build()
                 }
             }

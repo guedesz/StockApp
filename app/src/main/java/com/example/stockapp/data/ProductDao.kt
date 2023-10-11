@@ -4,7 +4,7 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface DaoProduct {
+interface ProductDao {
 
     @Query("select * from products")
     fun list(): Flow<List<Product>>
