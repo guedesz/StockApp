@@ -10,8 +10,8 @@ data class Product(
     var name: String,
     var description: String,
     var price: Double,
-    var foto: String,
-    var quantity: Int
+    var quantity: Int,
+    var photo: String
 )
 {
     constructor():this(
@@ -19,7 +19,7 @@ data class Product(
         "",
         "",
         0.0,
-        "semfoto.jpg",
         0,
+        "semfoto.jpg",
     )
 }

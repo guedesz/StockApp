@@ -2,22 +2,34 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    android:id="@+id/mobile_nav"
+    app:startDestination="@id/fragment_home">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/fragment_home"
         android:name="com.example.stockapp.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/fragment_product_item"
+        android:name="com.example.stockapp.ui.products.ProductItemFragment"
+        android:label="fragment_product_item"
+        tools:layout="@layout/fragment_product_item" />
+    <fragment
+        android:id="@+id/fragment_products"
+        android:name="com.example.stockapp.ui.products.ProductsFragment"
+        android:label="fragment_products"
+        tools:layout="@layout/fragment_products" >
         <action
-            android:id="@+id/action_home_to_products"
-            app:destination="@id/productsPage" />
+            android:id="@+id/action_fragment_products_to_productItemDetailFragment"
+            app:destination="@id/productItemDetailFragment"
+            app:popUpTo="@id/fragment_products"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
-        android:id="@+id/productsPage"
-        android:name="com.example.stockapp.ui.products.ProductsFragment"
-        android:label="fragment_products"
-        tools:layout="@layout/fragment_products" />
+        android:id="@+id/productItemDetailFragment"
+        android:name="com.example.stockapp.ui.products.ProductItemDetailFragment"
+        android:label="fragment_product_item_detail"
+        tools:layout="@layout/fragment_product_item_detail" />
 </navigation>
