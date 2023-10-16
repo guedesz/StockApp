@@ -11,7 +11,7 @@ data class Product(
     var description: String,
     var price: Double,
     var quantity: Int,
-    var photo: String
+    var photo: String,
 )
 {
     constructor():this(

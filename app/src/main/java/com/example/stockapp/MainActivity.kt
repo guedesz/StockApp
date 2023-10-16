@@ -20,12 +20,8 @@ class MainActivity : AppCompatActivity() {
         val view = _binding.root
         setContentView(view)
 
-        val viewModel : ProductViewModel by viewModels()
-
         val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(_binding.fragmentHome.id) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(_binding.bottomView, navController)
     }
-
-
 }
