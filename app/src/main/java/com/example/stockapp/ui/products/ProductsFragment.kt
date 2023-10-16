@@ -39,6 +39,7 @@ class ProductsFragment : Fragment() {
 
         val binding = FragmentProductsBinding.inflate(layoutInflater)
 
+        // listening for view model product changing and updating product recycler view
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.products.collect{ products ->

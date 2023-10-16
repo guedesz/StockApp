@@ -1,6 +1,5 @@
 package br.edu.up.app.ui.produto
 
-import android.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,11 +10,8 @@ import androidx.navigation.findNavController
 import com.example.stockapp.data.Photos
 import com.example.stockapp.data.Product
 import com.example.stockapp.databinding.FragmentProductItemBinding
-import com.example.stockapp.ui.products.ProductItemFragment
 import com.example.stockapp.ui.products.ProductViewModel
 import com.example.stockapp.ui.products.ProductsFragmentDirections
-import java.text.DecimalFormat
-import java.util.Locale
 
 class ProductsAdapter(
     private val products: List<Product>,
@@ -48,19 +44,6 @@ class ProductsAdapter(
             val action = ProductsFragmentDirections.actionFragmentProductsToProductItemDetailFragment()
             view.findNavController().navigate(action)
         }
-
-//        holder.itemView.setOnLongClickListener { view ->
-//            AlertDialog.Builder(view.context)
-//                .setMessage("ATENÇÃO")
-//                .setPositiveButton("Confirmar") { dialog, id ->
-//                    viewModel.delete(id)
-//                }
-//                .setNegativeButton("CANCELAR") { dialog, id ->
-//                    //ignorar
-//                }.create().show()
-//            true
-//        }
-
     }
 
     override fun getItemCount(): Int = products.size
@@ -71,7 +54,6 @@ class ProductsAdapter(
         val txtQuantity: TextView = binding.txtStock
         val txtName: TextView = binding.txtName
         val editButton: Button = binding.editButton
-
     }
 
 }

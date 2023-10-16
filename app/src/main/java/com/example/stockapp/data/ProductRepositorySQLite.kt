@@ -29,14 +29,14 @@ class ProductRepositorySQLite
 
         init {
         CoroutineScope(Job()).launch {
-            produtoDao.deleteAll()
-            Log.i("Test", "-----------> Limpou a base de dados!")
-            //delay(15000)
-            val products = products()
-            for(p in products){
-                produtoDao.set(p)
-            }
-            Log.i("Test", "-----------> Inseriu dados na base!")
+//            produtoDao.deleteAll()
+//            Log.i("Test", "-----------> Limpou a base de dados!")
+//            //delay(15000)
+//            val products = products()
+//            for(p in products){
+//                produtoDao.set(p)
+//            }
+//            Log.i("Test", "-----------> Inseriu dados na base!")
         }
     }
 

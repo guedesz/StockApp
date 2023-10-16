@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/fragment_product_item"
-        android:name="com.example.stockapp.ui.products.ProductItemFragment"
+        android:name="com.example.stockapp.ui.products.item.ProductItemFragment"
         android:label="fragment_product_item"
         tools:layout="@layout/fragment_product_item" />
     <fragment
@@ -29,7 +29,14 @@
 
     <fragment
         android:id="@+id/productItemDetailFragment"
-        android:name="com.example.stockapp.ui.products.ProductItemDetailFragment"
+        android:name="com.example.stockapp.ui.products.details.ProductItemDetailFragment"
         android:label="fragment_product_item_detail"
-        tools:layout="@layout/fragment_product_item_detail" />
+        tools:layout="@layout/fragment_product_item_detail" >
+        <action
+            android:id="@+id/action_productItemDetailFragment_to_fragment_products"
+            app:destination="@id/fragment_products" />
+<!--            app:popUpTo="@id/fragment_products"-->
+<!--            app:popUpToInclusive="true" />-->
+        <!-- Add the following lines to clear the back stack -->
+    </fragment>
 </navigation>

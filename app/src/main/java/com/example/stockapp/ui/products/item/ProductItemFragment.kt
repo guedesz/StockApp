@@ -1,16 +1,17 @@
-package com.example.stockapp.ui.home
+package com.example.stockapp.ui.products.item
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.stockapp.databinding.FragmentHomeBinding
+import androidx.lifecycle.ViewModelProvider
+import com.example.stockapp.databinding.FragmentProductItemBinding
 
-class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+class ProductItemFragment : Fragment() {
+
+    private var _binding: FragmentProductItemBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,10 +19,10 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentProductItemBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        val homeViewModel = ViewModelProvider(this).get(ProductItemViewModel::class.java)
 
         return root
     }
