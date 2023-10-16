@@ -16,7 +16,7 @@
         android:title="Products" />
 
     <item
-        android:id="@+id/fragment_create_products"
+        android:id="@+id/fragment_create_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_create_new_folder_24"

@@ -8,15 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.example.stockapp.databinding.FragmentHomeBinding
 import com.example.stockapp.databinding.FragmentProductItemDetailBinding
-import com.example.stockapp.ui.home.HomeViewModel
 import com.example.stockapp.ui.products.ProductViewModel
-import com.example.stockapp.ui.products.ProductsFragmentDirections
 
 class ProductItemDetailFragment : Fragment() {
 
@@ -32,15 +26,13 @@ class ProductItemDetailFragment : Fragment() {
         val root: View = binding.root
 
         val viewModel : ProductViewModel by activityViewModels()
-
-
         var product = viewModel.product
 
         binding.inputDesc.setText(product.description)
         binding.inputPreco.setText(product.price.toString())
         binding.inputQuantity.setText(product.quantity.toString())
         binding.inputName.setText(product.name)
-        binding.inputPhoto.setText(product.photo.toString())
+        binding.inputPhoto.setText(product.photo)
 
         binding.btnSalvar.setOnClickListener { view ->
 
@@ -60,6 +52,7 @@ class ProductItemDetailFragment : Fragment() {
                     }
                     Toast.makeText(context, "Produto editado com sucesso!", Toast.LENGTH_SHORT).show()
                     viewModel.set()
+
                     val action = ProductItemDetailFragmentDirections.actionProductItemDetailFragmentToFragmentProducts();
                     findNavController().navigate(action)
 

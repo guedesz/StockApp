@@ -4,11 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.stockapp.data.Product
 import com.example.stockapp.data.ProductRepository
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -16,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel
-@Inject constructor(val repository: ProductRepository) : ViewModel() {
+@Inject constructor(private val repository: ProductRepository) : ViewModel() {
 
     var product: Product = Product()
 
@@ -32,6 +28,7 @@ class ProductViewModel
     }
 
     fun new() {
+        println("New product instance created")
         product = Product()
     }
 
@@ -40,10 +37,14 @@ class ProductViewModel
     }
 
     fun set() = viewModelScope.launch {
+        println("Product saved in database")
         repository.set(product)
+        new()
     }
 
     fun delete(id: Int) = viewModelScope.launch {
+        println("Product deleted from database")
         repository.delete(id)
+        new()
     }
 }

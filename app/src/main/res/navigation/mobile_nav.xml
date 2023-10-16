@@ -35,8 +35,7 @@
         <action
             android:id="@+id/action_productItemDetailFragment_to_fragment_products"
             app:destination="@id/fragment_products" />
-<!--            app:popUpTo="@id/fragment_products"-->
-<!--            app:popUpToInclusive="true" />-->
+
         <!-- Add the following lines to clear the back stack -->
     </fragment>
 
@@ -47,7 +46,9 @@
         tools:layout="@layout/fragment_create_product" >
         <action
             android:id="@+id/action_fragment_create_product_to_fragment_products"
-            app:destination="@id/fragment_products" />
+            app:destination="@id/fragment_products"
+            app:popUpTo="@id/fragment_create_product"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 </navigation>
