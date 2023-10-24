@@ -6,12 +6,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.findNavController
-import com.example.stockapp.data.Photos
 import com.example.stockapp.data.Product
 import com.example.stockapp.databinding.FragmentProductItemBinding
 import com.example.stockapp.ui.products.ProductViewModel
-import com.example.stockapp.ui.products.ProductsFragmentDirections
 
 class ProductsAdapter(
     private val products: List<Product>,
@@ -33,17 +30,17 @@ class ProductsAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
-
-        val imgId = Photos.get(product.photo)
-        holder.imgPhoto.setImageResource(imgId)
-        holder.txtName.text = product.name
-        holder.txtQuantity.text = "Quantity Left: " + product.quantity.toString()
-
-        holder.editButton.setOnClickListener { view ->
-            viewModel.edit(product)
-            val action = ProductsFragmentDirections.actionFragmentProductsToProductItemDetailFragment()
-            view.findNavController().navigate(action)
-        }
+//
+//        val imgId = Photos.get(product.photo)
+//        holder.imgPhoto.setImageResource(imgId)
+//        holder.txtName.text = product.name
+//        holder.txtQuantity.text = "Quantity Left: " + product.quantity.toString()
+//
+//        holder.editButton.setOnClickListener { view ->
+//            viewModel.edit(product)
+//            val action = ProductsFragmentDirections.actionFragmentProductsToProductItemDetailFragment()
+//            view.findNavController().navigate(action)
+//        }
     }
 
     override fun getItemCount(): Int = products.size

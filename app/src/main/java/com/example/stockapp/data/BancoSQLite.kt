@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.stockapp.data.daos.CategoryDao
+import com.example.stockapp.data.objects.Category
 import kotlin.concurrent.Volatile
 
-@Database(entities = [Product::class], version = 1)
+@Database(entities = [Product::class, Category::class], version = 2)
 abstract class BancoSQLite : RoomDatabase() {
 
     abstract fun productDao(): ProductDao
+    abstract fun categoryDao(): CategoryDao
     companion object{
 
         @Volatile
@@ -22,7 +25,7 @@ abstract class BancoSQLite : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         BancoSQLite::class.java,
-                        "stock.db"
+                        "banco.db"
                     ).build()
                 }
             }

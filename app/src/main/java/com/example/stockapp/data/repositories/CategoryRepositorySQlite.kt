@@ -1,32 +1,33 @@
-package com.example.stockapp.data
+package com.example.stockapp.data.repositories
 
-import com.example.stockapp.data.ProductDao
+import com.example.stockapp.data.daos.CategoryDao
+import com.example.stockapp.data.objects.Category
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ProductRepositorySQLite
-@Inject constructor(private val produtoDao: ProductDao)
-    : ProductRepository {
+class CategoryRepositorySQlite
+@Inject constructor(private val categoryDao: CategoryDao)
+    : CategoryRepository {
 
-    override  val products: Flow<List<Product>>
-        get() = produtoDao.list()
+    override  val categories: Flow<List<Category>>
+        get() = categoryDao.list()
 
-    override suspend fun set(product: Product) {
-        if (product.id == 0){
-            produtoDao.set(product)
+    override suspend fun set(category: Category) {
+        if (category.id == 0){
+            categoryDao.set(category)
         } else {
-            produtoDao.update(product)
+            categoryDao.update(category)
         }
     }
 
     override suspend fun delete(id: Int){
-        produtoDao.delete(id)
+        categoryDao.delete(id)
     }
 
-        init {
+    init {
         CoroutineScope(Job()).launch {
 //            produtoDao.deleteAll()
 //            Log.i("Test", "-----------> Limpou a base de dados!")
@@ -38,6 +39,6 @@ class ProductRepositorySQLite
 //            Log.i("Test", "-----------> Inseriu dados na base!")
         }
 
-        }
     }
+}
 
