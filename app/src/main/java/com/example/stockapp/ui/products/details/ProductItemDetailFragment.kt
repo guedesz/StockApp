@@ -53,8 +53,8 @@ class ProductItemDetailFragment : Fragment() {
                     Toast.makeText(context, "Produto editado com sucesso!", Toast.LENGTH_SHORT).show()
                     viewModel.set()
 
-                    val action = ProductItemDetailFragmentDirections.actionProductItemDetailFragmentToFragmentProducts();
-                    findNavController().navigate(action)
+//                    val action = ProductItemDetailFragmentDirections.actionProductItemDetailFragmentToFragmentProducts();
+//                    findNavController().navigate(action)
 
                 }
                 .setNegativeButton("Cancelar") { dialog, id ->
@@ -73,8 +73,8 @@ class ProductItemDetailFragment : Fragment() {
 
                     viewModel.delete(viewModel.product.id)
 
-                    val action = ProductItemDetailFragmentDirections.actionProductItemDetailFragmentToFragmentProducts();
-                    findNavController().navigate(action)
+//                    val action = ProductItemDetailFragmentDirections.actionProductItemDetailFragmentToFragmentProducts();
+//                    findNavController().navigate(action)
                 }
                 .setNegativeButton("Cancelar") { dialog, id ->
                     //ignorar

@@ -8,8 +8,11 @@ import com.example.stockapp.data.ProductDao
 import com.example.stockapp.data.ProductRepository
 import com.example.stockapp.data.ProductRepositorySQLite
 import com.example.stockapp.data.daos.CategoryDao
+import com.example.stockapp.data.daos.ReceitaDao
 import com.example.stockapp.data.repositories.CategoryRepository
 import com.example.stockapp.data.repositories.CategoryRepositorySQlite
+import com.example.stockapp.data.repositories.ReceitaRepository
+import com.example.stockapp.data.repositories.ReceitaRepositorySQlite
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +26,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 
 class StockApp : Application() {
+
+    @Provides
+    fun provideReceitaRepository(receitaDao: ReceitaDao) : ReceitaRepository {
+        return ReceitaRepositorySQlite(receitaDao)
+    }
+
+    @Provides
+    fun provideReceitaDao(banco: BancoSQLite) : ReceitaDao {
+        return banco.receitaDao()
+    }
 
     @Provides
     fun provideCategoryRepository(categoryDao: CategoryDao) : CategoryRepository {

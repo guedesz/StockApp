@@ -58,9 +58,9 @@ class CreateProductFragment : Fragment() {
 
                     viewModel.set()
 
-                    val action = CreateProductFragmentDirections.actionFragmentCreateProductToFragmentProducts();
-                    findNavController().navigate(action)
 
+//                    val action = CreateProductFragmentDirections.actionFragmentCreateProductToFragmentProducts();
+//                    findNavController().navigate(action)
                     binding.inputDesc.setText("")
                     binding.inputPreco.setText("0")
                     binding.inputQuantity.setText("0")

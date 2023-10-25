@@ -16,6 +16,6 @@ data class Category(
         0,
         "semfoto.jpg",
         "Categoria",
-        "default"
+        "Purple"
     )
 }

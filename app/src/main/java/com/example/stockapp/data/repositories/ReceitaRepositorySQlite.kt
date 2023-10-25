@@ -1,7 +1,8 @@
 package com.example.stockapp.data.repositories
 
 import android.util.Log
-import com.example.stockapp.data.daos.CategoryDao
+import com.example.stockapp.data.objects.Receita
+import com.example.stockapp.data.daos.ReceitaDao
 import com.example.stockapp.data.objects.Category
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -9,40 +10,40 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CategoryRepositorySQlite
-@Inject constructor(private val categoryDao: CategoryDao)
-    : CategoryRepository {
+class ReceitaRepositorySQlite
+@Inject constructor(private val receitaDao: ReceitaDao)
+    : ReceitaRepository {
 
-    override  val categories: Flow<List<Category>>
-        get() = categoryDao.list()
+    override  val receitas: Flow<List<Receita>>
+        get() = receitaDao.list()
 
-    override suspend fun set(category: Category) {
-        if (category.id == 0){
-            categoryDao.set(category)
+    override suspend fun set(receita: Receita) {
+        if (receita.id == 0){
+            receitaDao.set(receita)
         } else {
-            categoryDao.update(category)
+            receitaDao.update(receita)
         }
     }
 
     override suspend fun delete(id: Int){
-        categoryDao.delete(id)
+        receitaDao.delete(id)
     }
 
     init {
         CoroutineScope(Job()).launch {
-            categoryDao.deleteAll()
+            receitaDao.deleteAll()
             Log.i("Test", "-----------> Limpou a base de dados!")
             //delay(15000)
-            val categories = categories()
-            for(p in categories){
-                categoryDao.set(p)
-            }
+//            val receitas = categories()
+//            for(p in receitas){
+//                receitas.set(p)
+//            }
             Log.i("Test", "-----------> Inseriu dados na base!")
         }
 
     }
 
-        companion object {
+    companion object {
         fun categories(): MutableList<Category> {
             val lista = mutableListOf(
                 Category(

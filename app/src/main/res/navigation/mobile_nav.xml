@@ -9,46 +9,22 @@
         android:id="@+id/fragment_home"
         android:name="com.example.stockapp.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/fragment_product_item"
-        android:name="com.example.stockapp.ui.products.item.ProductItemFragment"
-        android:label="fragment_product_item"
-        tools:layout="@layout/fragment_product_item" />
-    <fragment
-        android:id="@+id/fragment_products"
-        android:name="com.example.stockapp.ui.products.ProductsFragment"
-        android:label="fragment_products"
-        tools:layout="@layout/fragment_products" >
+        tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_fragment_products_to_productItemDetailFragment"
-            app:destination="@id/fragment_product_item_detail"
-            app:popUpTo="@id/fragment_products"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_fragment_home_to_receitasFragment"
+            app:destination="@id/receitasFragment"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true" />/>
     </fragment>
-
     <fragment
-        android:id="@+id/fragment_product_item_detail"
-        android:name="com.example.stockapp.ui.products.details.ProductItemDetailFragment"
-        android:label="fragment_product_item_detail"
-        tools:layout="@layout/fragment_product_item_detail" >
-        <action
-            android:id="@+id/action_productItemDetailFragment_to_fragment_products"
-            app:destination="@id/fragment_products" />
+        android:id="@+id/receitasFragment"
+        android:name="com.example.stockapp.ui.receita.ReceitasFragment"
+        android:label="fragment_receitas"
+        tools:layout="@layout/fragment_receitas" >
 
-        <!-- Add the following lines to clear the back stack -->
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_create_product"
-        android:name="com.example.stockapp.ui.products.create.CreateProductFragment"
-        android:label="fragment_create_product"
-        tools:layout="@layout/fragment_create_product" >
-        <action
-            android:id="@+id/action_fragment_create_product_to_fragment_products"
-            app:destination="@id/fragment_products"
-            app:popUpTo="@id/fragment_create_product"
-            app:popUpToInclusive="true"/>
+    <argument
+        android:name="categoryName"
+        app:argType="string" />
     </fragment>
 
 </navigation>

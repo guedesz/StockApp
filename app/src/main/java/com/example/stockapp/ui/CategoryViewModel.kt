@@ -1,3 +1,5 @@
+package com.example.stockapp.ui
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.stockapp.data.objects.Category
@@ -10,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel
-@Inject constructor(private val repository: CategoryRepository) : ViewModel() {
+@Inject constructor(val repository: CategoryRepository) : ViewModel() {
 
     var category: Category = Category()
 

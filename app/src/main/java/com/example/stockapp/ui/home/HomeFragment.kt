@@ -1,8 +1,7 @@
 package com.example.stockapp.ui.home
 
-import CategoryViewModel
+import com.example.stockapp.ui.CategoryViewModel
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,10 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.edu.up.app.ui.produto.ProductsAdapter
 import com.example.stockapp.databinding.FragmentHomeBinding
 import com.example.stockapp.ui.categories.CategoryAdapter
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -44,7 +41,7 @@ class HomeFragment : Fragment() {
                         val recyclerView = binding.recyclerView
                         with(recyclerView) {
                             layoutManager = LinearLayoutManager(context)
-                            adapter = CategoryAdapter(categories,viewModel)
+                            adapter = CategoryAdapter(categories, viewModel)
                         }
                     }
                 }
