@@ -42,6 +42,10 @@ class CategoryViewModel
         new()
     }
 
+    suspend fun getByName(name: String): Category {
+        return repository.getCategoryByName(name)
+    }
+
     fun delete(id: Int) = viewModelScope.launch {
         println("Category deleted from database")
         repository.delete(id)

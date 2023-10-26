@@ -16,6 +16,16 @@ class CategoryRepositorySQlite
     override  val categories: Flow<List<Category>>
         get() = categoryDao.list()
 
+   override suspend fun getCategoryByName(name: String): Category {
+        val info = categoryDao.getCategoryByName(name)
+        return Category(
+            info.id,
+            info.photo,
+            info.name,
+            info.color
+        )
+    }
+
     override suspend fun set(category: Category) {
         if (category.id == 0){
             categoryDao.set(category)

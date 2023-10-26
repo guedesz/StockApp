@@ -14,8 +14,9 @@
             android:id="@+id/action_fragment_home_to_receitasFragment"
             app:destination="@id/receitasFragment"
             app:popUpTo="@id/fragment_home"
-            app:popUpToInclusive="true" />/>
+            app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/receitasFragment"
         android:name="com.example.stockapp.ui.receita.ReceitasFragment"
@@ -25,6 +26,26 @@
     <argument
         android:name="categoryName"
         app:argType="string" />
+        <action
+            android:id="@+id/action_receitasFragment_to_receitaItemDetailFrament"
+            app:destination="@id/receitaItemDetailFrament" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/receitaItemDetailFrament"
+        android:name="com.example.stockapp.ui.receita.ReceitaItemDetailFrament"
+        android:label="fragment_receita_item_detail_frament"
+        tools:layout="@layout/fragment_receita_item_detail_frament" />
+    <fragment
+        android:id="@+id/createNewReceitaFragment"
+        android:name="com.example.stockapp.ui.receita.CreateNewReceitaFragment"
+        android:label="fragment_create_new_receita"
+        tools:layout="@layout/fragment_create_new_receita" >
+        <action
+            android:id="@+id/action_createNewReceitaFragment_to_fragment_home"
+            app:destination="@id/fragment_home"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

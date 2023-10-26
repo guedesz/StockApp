@@ -20,7 +20,8 @@ data class Receita(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     var name: String,
-    var description: String,
+    var ingredientes: String,
+    var modo_preparo: String,
     var calories: Int,
     var likes: Int,
     var photo: String,
@@ -30,6 +31,7 @@ data class Receita(
 {
     constructor():this(
         0,
+        "",
         "",
         "",
         0,

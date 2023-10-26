@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CategoryDao {
 
+    @Query("SELECT * FROM categories WHERE name = :name")
+    suspend fun getCategoryByName(name: String): Category
+
     @Query("select * from categories")
     fun list(): Flow<List<Category>>
     @Insert

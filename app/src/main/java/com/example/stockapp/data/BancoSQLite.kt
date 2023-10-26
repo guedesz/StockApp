@@ -10,10 +10,9 @@ import com.example.stockapp.data.objects.Category
 import com.example.stockapp.data.objects.Receita
 import kotlin.concurrent.Volatile
 
-@Database(entities = [Product::class, Category::class, Receita::class], version = 2)
+@Database(entities = [Category::class, Receita::class], version = 2)
 abstract class BancoSQLite : RoomDatabase() {
 
-    abstract fun productDao(): ProductDao
     abstract fun categoryDao(): CategoryDao
     abstract  fun receitaDao(): ReceitaDao
     companion object{

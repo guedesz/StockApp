@@ -13,10 +13,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.stockapp.databinding.FragmentHomeBinding
+
+import com.example.stockapp.data.repositories.CategoryRepositorySQlite
 import com.example.stockapp.databinding.FragmentReceitasBinding
 import com.example.stockapp.ui.CategoryViewModel
-import com.example.stockapp.ui.categories.CategoryAdapter
+import com.example.stockapp.ui.ReceitasViewModel
 import kotlinx.coroutines.launch
 
 class ReceitasFragment : Fragment() {
@@ -32,9 +33,32 @@ class ReceitasFragment : Fragment() {
         _binding = FragmentReceitasBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        println("Opening category: " + args.categoryName)
 
         binding.categoryName.text = args.categoryName
+
+        val viewModel : ReceitasViewModel by activityViewModels()
+        val categoryViewModel : CategoryViewModel by activityViewModels()
+
+        lifecycleScope.launch {
+
+            val categoryIdFragment = categoryViewModel.getByName(args.categoryName)
+
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.receitas.collect{ receitas ->
+
+                    val receitasFiltradas = receitas.filter { it.category_id == categoryIdFragment.id }
+
+                    if (binding.receitasRecycler is RecyclerView) {
+                        val recyclerView = binding.receitasRecycler
+                        with(recyclerView) {
+                            layoutManager = LinearLayoutManager(context)
+                            adapter = ReceitasAdapter(receitasFiltradas,viewModel)
+                        }
+                    }
+                }
+            }
+        }
+
         return root
     }
 
