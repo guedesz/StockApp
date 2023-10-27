@@ -13,31 +13,47 @@
         android:id="@+id/categoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:text="CategoriaName"
+        android:text="@string/app_name"
         android:textColor="#000000"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/receitasRecycler"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/receitasRecycler"
-        android:layout_width="412dp"
-        android:layout_height="664dp"
+        android:layout_width="409dp"
+        android:layout_height="603dp"
         android:layout_marginStart="4dp"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryName"
         app:layout_constraintVertical_bias="1.0"
-        app:layoutManager="LinearLayoutManager"
         tools:context=".ui.receita.ReceitasFragment"
-        tools:listitem="@layout/fragment_receita_item" />/>
+        tools:listitem="@layout/fragment_receita_item" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="410dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="1dp"
+        android:background="#D7D7D7"
+        android:clipChildren="false"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="@+id/receitasRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryName"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

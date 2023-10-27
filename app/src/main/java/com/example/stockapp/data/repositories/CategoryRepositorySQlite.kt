@@ -63,14 +63,14 @@ class CategoryRepositorySQlite
                 ),
 
                 Category(
-                    2,
+                    3,
                     "glutenfree.jpg",
                     "Gluten Free",
                     "Dark Blue"
                 ),
 
                 Category(
-                    3,
+                    2,
                     "zerolactose.jpg",
                     "Zero Lactose",
                     "Purple"
