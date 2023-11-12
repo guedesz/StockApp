@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Category(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
+    var docId: String,
     var photo: String,
     var name: String,
     var color: String,
@@ -14,6 +15,7 @@ data class Category(
 {
     constructor():this(
         0,
+        "0",
         "semfoto.jpg",
         "Categoria",
         "Purple"

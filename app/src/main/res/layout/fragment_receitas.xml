@@ -9,6 +9,23 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="410dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="1dp"
+        android:background="#D7D7D7"
+        android:clipChildren="false"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toTopOf="@+id/receitasRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryName"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/categoryName"
         android:layout_width="wrap_content"
@@ -38,22 +55,5 @@
         app:layout_constraintVertical_bias="1.0"
         tools:context=".ui.receita.ReceitasFragment"
         tools:listitem="@layout/fragment_receita_item" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
-        android:layout_width="410dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="1dp"
-        android:background="#D7D7D7"
-        android:clipChildren="false"
-        app:iconifiedByDefault="false"
-        app:layout_constraintBottom_toBottomOf="@+id/receitasRecycler"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryName"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

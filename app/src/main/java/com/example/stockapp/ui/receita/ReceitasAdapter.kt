@@ -6,12 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
+import coil.load
 import com.example.stockapp.data.Photos
 import com.example.stockapp.data.objects.Receita
 import com.example.stockapp.databinding.FragmentReceitaItemBinding
 import com.example.stockapp.ui.ReceitasViewModel
 import com.example.stockapp.ui.categories.CategoryAdapter
 import com.example.stockapp.ui.home.HomeFragmentDirections
+import com.google.firebase.Firebase
+import com.google.firebase.storage.storage
 
 class ReceitasAdapter(
     private val receitas: List<Receita>,
@@ -28,8 +31,16 @@ class ReceitasAdapter(
     override fun onBindViewHolder(holder: ReceitasViewHolder, position: Int) {
         val receita = receitas[position]
 
-        val imgId = Photos.get(receita.photo)
-        holder.imgPhoto.setImageResource(imgId)
+        Firebase.storage.getReference(receita.photo).downloadUrl
+            .addOnSuccessListener { imageUrl ->
+                holder.imgPhoto.load(imageUrl)
+            }
+            .addOnFailureListener { exception ->
+                // Tratamento de erro ao obter a URL da imagem
+                // Aqui você pode lidar com o erro, seja registrando, notificando o usuário, etc.
+                println("Erro ao obter URL da imagem: $exception")
+            }
+
         holder.txtName.text = receita.name
         holder.txtCalories.text = receita.calories.toString()
 

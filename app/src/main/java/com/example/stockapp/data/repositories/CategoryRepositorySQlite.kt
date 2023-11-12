@@ -20,6 +20,7 @@ class CategoryRepositorySQlite
         val info = categoryDao.getCategoryByName(name)
         return Category(
             info.id,
+            info.docId,
             info.photo,
             info.name,
             info.color
@@ -36,49 +37,6 @@ class CategoryRepositorySQlite
 
     override suspend fun delete(id: Int){
         categoryDao.delete(id)
-    }
-
-    init {
-        CoroutineScope(Job()).launch {
-            categoryDao.deleteAll()
-            Log.i("Test", "-----------> Limpou a base de dados!")
-            //delay(15000)
-            val categories = categories()
-            for(p in categories){
-                categoryDao.set(p)
-            }
-            Log.i("Test", "-----------> Inseriu dados na base!")
-        }
-
-    }
-
-        companion object {
-        fun categories(): MutableList<Category> {
-            val lista = mutableListOf(
-                Category(
-                    1,
-                    "vegetariano.jpg",
-                    "Vegetariano",
-                    "Green"
-                ),
-
-                Category(
-                    3,
-                    "glutenfree.jpg",
-                    "Gluten Free",
-                    "Dark Blue"
-                ),
-
-                Category(
-                    2,
-                    "zerolactose.jpg",
-                    "Zero Lactose",
-                    "Purple"
-                ),
-            )
-
-            return lista
-        }
     }
 
 }

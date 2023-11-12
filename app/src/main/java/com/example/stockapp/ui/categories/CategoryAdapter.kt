@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
+import coil.load
 import com.example.stockapp.data.Colors
 import com.example.stockapp.data.Photos
 import com.example.stockapp.data.objects.Category
 import com.example.stockapp.databinding.FragmentCategoryItemBinding
 import com.example.stockapp.ui.home.HomeFragmentDirections
+import com.google.firebase.Firebase
+import com.google.firebase.storage.storage
 
 class CategoryAdapter(
     private val categories: List<Category>,
@@ -35,8 +38,19 @@ class CategoryAdapter(
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[position]
 
-        val imgId = Photos.get(category.photo)
-        holder.imgPhoto.setImageResource(imgId)
+//        val imgId = Photos.get(category.photo)
+
+        Firebase.storage.getReference(category.photo).downloadUrl
+            .addOnSuccessListener { imageUrl ->
+                holder.imgPhoto.load(imageUrl)
+            }
+            .addOnFailureListener { exception ->
+                // Tratamento de erro ao obter a URL da imagem
+                // Aqui você pode lidar com o erro, seja registrando, notificando o usuário, etc.
+                println("Erro ao obter URL da imagem: $exception")
+            }
+
+        // holder.imgPhoto.setImageResource(imgId)
         holder.txtName.text = category.name
         holder.binding.root.setBackgroundColor((Color.parseColor(Colors.get(category.color))))
 

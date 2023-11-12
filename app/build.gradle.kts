@@ -5,6 +5,7 @@ plugins {
     id ("com.google.devtools.ksp")
     id ("com.google.dagger.hilt.android")
     id ("dagger.hilt.android.plugin")
+    id ("com.google.gms.google-services")
     id ("kotlin-kapt")
 }
 
@@ -72,6 +73,11 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.47")
     kapt ("com.google.dagger:hilt-android-compiler:2.47")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation ("com.google.firebase:firebase-firestore-ktx")
+    implementation ("com.google.firebase:firebase-storage-ktx")
 
     implementation ("io.coil-kt:coil:2.4.0")
 

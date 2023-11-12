@@ -29,7 +29,7 @@ class ReceitasViewModel
 
     fun new() {
         println("New receita instance created")
-        receita = Receita()
+        this.receita = Receita()
     }
 
     fun edit(receita: Receita) {

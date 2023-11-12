@@ -35,6 +35,8 @@ class CreateNewReceitaFragment : Fragment() {
         val viewModel : ReceitasViewModel by activityViewModels()
         val categoryViewModel: CategoryViewModel by activityViewModels()
 
+        viewModel.new()
+
         binding.inputName.setText("")
         binding.inputPhoto.setText("semfoto")
         binding.inputCalories.setText("0")
@@ -43,7 +45,13 @@ class CreateNewReceitaFragment : Fragment() {
 
         val spinner = binding.categorySpinner
         val categoryList = categoryViewModel.categories.value
+
+
         val categoryNameList = categoryList?.map { it.name } ?: emptyList()
+
+        if (categoryNameList.isEmpty()) {
+            return root
+        }
 
         val adapter = ArrayAdapter<String>(
             requireActivity(),
@@ -55,7 +63,6 @@ class CreateNewReceitaFragment : Fragment() {
         spinner.adapter = adapter
 
         var selectedCategory = categoryNameList[0]
-        println(selectedCategory)
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -82,7 +89,6 @@ class CreateNewReceitaFragment : Fragment() {
                     lifecycleScope.launch {
                         try {
 
-                            viewModel.receita.id = 0
                             viewModel.receita.name = binding.inputName.text.toString()
                             viewModel.receita.ingredientes = binding.inputIngredientes.text.toString()
                             viewModel.receita.modo_preparo = binding.inputModoPreparo.text.toString()

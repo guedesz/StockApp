@@ -19,6 +19,7 @@ import com.example.stockapp.data.objects.Category
 data class Receita(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
+    var docId: String,
     var name: String,
     var ingredientes: String,
     var modo_preparo: String,
@@ -31,6 +32,7 @@ data class Receita(
 {
     constructor():this(
         0,
+        "0",
         "",
         "",
         "",
