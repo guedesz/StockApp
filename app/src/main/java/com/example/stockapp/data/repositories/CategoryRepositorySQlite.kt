@@ -39,5 +39,51 @@ class CategoryRepositorySQlite
         categoryDao.delete(id)
     }
 
+    init {
+        CoroutineScope(Job()).launch {
+            categoryDao.deleteAll()
+            Log.i("Test", "-----------> Limpou a base de dados!")
+            //delay(15000)
+            val categories = categories()
+            for(p in categories){
+                categoryDao.set(p)
+            }
+            Log.i("Test", "-----------> Inseriu dados na base!")
+        }
+
+    }
+
+    companion object {
+        fun categories(): MutableList<Category> {
+            val lista = mutableListOf(
+                Category(
+                    1,
+                    "1",
+                    "vegetariano.jpg",
+                    "Vegetariano",
+                    "Green"
+                ),
+
+                Category(
+                    3,
+                    "3",
+                    "glutenfree.jpg",
+                    "Gluten Free",
+                    "Dark Blue"
+                ),
+
+                Category(
+                    2,
+                    "2",
+                    "zerolactose.jpg",
+                    "Zero Lactose",
+                    "Purple"
+                ),
+            )
+
+            return lista
+        }
+    }
+
 }
 

@@ -4,8 +4,6 @@ import com.example.stockapp.data.objects.Category
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
-
-
     val categories: Flow<List<Category>>
     suspend fun set(category: Category)
     suspend fun delete(id: Int)
