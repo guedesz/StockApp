@@ -12,7 +12,8 @@ interface CategoryDao {
 
     @Query("select * from categories")
     fun list(): Flow<List<Category>>
-    @Insert
+
+    @Insert(onConflict =OnConflictStrategy.REPLACE)
     suspend fun set(category: Category)
     @Update
     suspend fun update(category: Category)

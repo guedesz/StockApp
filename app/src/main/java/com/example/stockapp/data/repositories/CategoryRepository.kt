@@ -7,5 +7,6 @@ interface CategoryRepository {
     val categories: Flow<List<Category>>
     suspend fun set(category: Category)
     suspend fun delete(id: Int)
+    suspend fun getCategoryById(id: Int): Category
     suspend fun getCategoryByName(name: String): Category
 }

@@ -16,7 +16,7 @@ class CategoryViewModel
 
     var category: Category = Category()
 
-    private val _categories = MutableStateFlow<List<Category>>(emptyList())
+    private var _categories = MutableStateFlow<List<Category>>(emptyList())
     val categories: StateFlow<List<Category>> = _categories
 
     init {
@@ -40,6 +40,10 @@ class CategoryViewModel
         println("Category saved in database")
         repository.set(category)
         new()
+    }
+
+    suspend fun getById(id: Int): Category {
+        return repository.getCategoryById(id)
     }
 
     suspend fun getByName(name: String): Category {

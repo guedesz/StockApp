@@ -25,8 +25,8 @@ class ReceitaRepositorySQlite
         }
     }
 
-    override suspend fun delete(id: Int){
-        receitaDao.delete(id)
+    override suspend fun delete(id: String){
+        receitaDao.delete(id.toInt())
     }
 
     init {

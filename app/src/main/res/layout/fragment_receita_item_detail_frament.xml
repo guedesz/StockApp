@@ -91,10 +91,16 @@
             <TextView
                 android:id="@+id/modoView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="140dp"
                 android:gravity="center|top"
                 android:text="Texto Sobre o modo de preparo aqui"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <Button
+                android:id="@+id/buttonEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar" />
 
         </LinearLayout>
     </ScrollView>

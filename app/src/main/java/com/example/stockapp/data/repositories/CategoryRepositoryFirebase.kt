@@ -10,10 +10,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import javax.inject.Named
 
 
 class CategoryRepositoryFirebase
-@Inject constructor(private val categoryRef: CollectionReference)
+@Inject constructor(@Named("categories") private val categoryRef: CollectionReference)
     : CategoryRepository {
 
     private var _categories = MutableStateFlow(listOf<Category>())
@@ -21,28 +22,47 @@ class CategoryRepositoryFirebase
         get() = _categories.asStateFlow()
 
     init {
-        categoryRef.addSnapshotListener { snapshot, exception ->
-            if (exception != null) {
-                // Handle the exception, log, or notify the user
-                println("Error getting categories: $exception")
-                return@addSnapshotListener
-            }
-
-            if (snapshot != null && !snapshot.metadata.isFromCache) {
-                val categories = mutableListOf<Category>()
-                snapshot.documents.forEach { doc ->
-                    val category = doc.toObject<Category>()
-                    if (category != null) {
-                        category.docId = doc.id
-                        categories.add(category)
+        categoryRef.addSnapshotListener { snapshot, _ ->
+            if(snapshot != null){
+                var notes = mutableListOf<Category>()
+                snapshot.documents.forEach{ doc ->
+                    val note = doc.toObject<Category>()
+                    if (note != null){
+                        note.docId = doc.id
+                        notes.add(note)
                     }
                 }
-                _categories.value = categories
-            } else {
-                // Handle cache scenario if needed
+                _categories.value = notes
+            }else{
+                _categories = MutableStateFlow(listOf())
             }
         }
     }
+
+    override suspend fun getCategoryById(id: Int): Category {
+        return try {
+
+            val querySnapshot = categoryRef
+                .whereEqualTo("id", id)
+                .get()
+                .await()
+
+            if (!querySnapshot.isEmpty) {
+                val document = querySnapshot.documents[0]
+                val category = document.toObject(Category::class.java)
+                category?.apply {
+                    docId = document.id
+                } ?: throw NoSuchElementException("Category not found")
+            } else {
+                throw NoSuchElementException("Category not found")
+            }
+        } catch (e: Exception) {
+            // Handle the exception, log, or notify the user
+            println("Error getting category by ID: $e")
+            throw e
+        }
+    }
+
     override suspend fun set(category: Category) {
         if (category.docId.isNullOrEmpty()) {
             val doc = categoryRef.document()
@@ -59,6 +79,7 @@ class CategoryRepositoryFirebase
                 }
         }
     }
+
     override suspend fun delete(id: Int) {
         categoryRef.document(id.toString()).delete()
             .addOnFailureListener { e ->

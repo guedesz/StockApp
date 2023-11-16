@@ -1,5 +1,6 @@
 package com.example.stockapp.ui.receita
 
+import android.annotation.SuppressLint
 import androidx.appcompat.widget.SearchView
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +30,7 @@ class ReceitasFragment : Fragment() {
     private var _binding: FragmentReceitasBinding? = null
     private val binding get() = _binding!!
     private val args: ReceitasFragmentArgs by navArgs()
+    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -91,6 +93,7 @@ class ReceitasFragment : Fragment() {
 
 
                 }
+
                 return true
             }
 

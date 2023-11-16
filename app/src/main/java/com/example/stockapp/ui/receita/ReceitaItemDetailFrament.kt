@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.stockapp.data.Photos
 import com.example.stockapp.databinding.FragmentReceitaItemDetailFramentBinding
 import com.example.stockapp.ui.ReceitasViewModel
@@ -32,6 +33,11 @@ class ReceitaItemDetailFrament : Fragment() {
         binding.modoView.text = receita.modo_preparo
         val imgId = Photos.get(receita.photo)
         binding.receitaFoto.setImageResource(imgId)
+
+        binding.buttonEditar.setOnClickListener() {
+            val action = ReceitaItemDetailFramentDirections.actionReceitaItemDetailFramentToEditDeleteReceitaFragment();
+            findNavController().navigate(action)
+        }
 
         return root
     }

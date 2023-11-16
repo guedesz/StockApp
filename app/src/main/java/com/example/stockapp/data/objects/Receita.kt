@@ -32,7 +32,7 @@ data class Receita(
 {
     constructor():this(
         0,
-        "0",
+        "",
         "",
         "",
         "",

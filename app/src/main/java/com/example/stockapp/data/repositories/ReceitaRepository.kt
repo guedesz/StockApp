@@ -7,5 +7,5 @@ interface ReceitaRepository {
 
     val receitas: Flow<List<Receita>>
     suspend fun set(receita: Receita)
-    suspend fun delete(id: Int)
+    suspend fun delete(id: String)
 }

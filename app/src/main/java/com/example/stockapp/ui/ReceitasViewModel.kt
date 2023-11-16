@@ -42,7 +42,7 @@ class ReceitasViewModel
         new()
     }
 
-    fun delete(id: Int) = viewModelScope.launch {
+    fun delete(id: String) = viewModelScope.launch {
         println("receita deleted from database")
         repository.delete(id)
         new()

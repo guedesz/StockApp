@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1041752017656",
+    "project_id": "appreceitas-9727e",
+    "storage_bucket": "appreceitas-9727e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041752017656:android:164ec293a829b348a9090d",
+        "android_client_info": {
+          "package_name": "com.example.stockapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArhOxj1YqF9n7-QL-pdev24KROh_UR9aI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

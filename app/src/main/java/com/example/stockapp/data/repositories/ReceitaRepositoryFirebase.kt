@@ -9,9 +9,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import javax.inject.Named
 
 class ReceitaRepositoryFirebase
-@Inject constructor(private val receitasRef: CollectionReference)
+@Inject constructor(@Named("receitas") private val receitasRef: CollectionReference)
     : ReceitaRepository {
 
     private var _receitas = MutableStateFlow(listOf<Receita>())
@@ -19,35 +20,35 @@ class ReceitaRepositoryFirebase
         get() = _receitas.asStateFlow()
 
     init {
-        receitasRef.addSnapshotListener { snapshot, exception ->
-            if (exception != null) {
-                // Handle the exception, log, or notify the user
-                println("Error getting receitas: $exception")
-                return@addSnapshotListener
-            }
-
-            if (snapshot != null && !snapshot.metadata.isFromCache) {
-                val receitas = mutableListOf<Receita>()
-                snapshot.documents.forEach { doc ->
-                    val receita = doc.toObject<Receita>()
-                    if (receita != null) {
-                        receita.docId = doc.id
-                        receitas.add(receita)
+        receitasRef.addSnapshotListener { snapshot, _ ->
+            if(snapshot != null){
+                var notes = mutableListOf<Receita>()
+                snapshot.documents.forEach{ doc ->
+                    val note = doc.toObject<Receita>()
+                    if (note != null){
+                        note.docId = doc.id
+                        notes.add(note)
                     }
                 }
-                _receitas.value = receitas
-            } else {
-                // Handle cache scenario if needed
+                _receitas.value = notes
+            }else{
+                _receitas = MutableStateFlow(listOf())
             }
         }
+
     }
 
     override suspend fun set(receita: Receita) {
         try {
-            // Use add() para permitir que o Firestore gere automaticamente um ID exclusivo
-            val docRef = receitasRef.add(receita).await()
 
-            // Atualizar o campo id na sua classe Receita, caso seja um número inteiro
+            val doc = if (receita.docId.isNullOrEmpty()) {
+                receitasRef.document().set(receita)
+            } else {
+                receitasRef.document(receita.docId!!).set(receita)
+            }
+//            val docRef = receitasRef.add(receita).await()
+//
+//            // Atualizar o campo id na sua classe Receita, caso seja um número inteiro
 
             println("Receita salva com sucesso!")
         } catch (e: Exception) {
@@ -58,8 +59,8 @@ class ReceitaRepositoryFirebase
 
     }
 
-    override suspend fun delete(id: Int) {
-        receitasRef.document(id.toString()).delete()
+    override suspend fun delete(id: String) {
+        receitasRef.document(id).delete()
             .addOnFailureListener { e ->
                 // Handle the failure, log, or notify the user
                 println("Error deleting receita: $e")

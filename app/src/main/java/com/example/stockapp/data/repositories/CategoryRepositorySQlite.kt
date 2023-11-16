@@ -27,6 +27,10 @@ class CategoryRepositorySQlite
         )
     }
 
+    override suspend fun getCategoryById(id: Int): Category {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun set(category: Category) {
         if (category.id == 0){
             categoryDao.set(category)

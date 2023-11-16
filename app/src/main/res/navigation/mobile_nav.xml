@@ -35,7 +35,11 @@
         android:id="@+id/receitaItemDetailFrament"
         android:name="com.example.stockapp.ui.receita.ReceitaItemDetailFrament"
         android:label="fragment_receita_item_detail_frament"
-        tools:layout="@layout/fragment_receita_item_detail_frament" />
+        tools:layout="@layout/fragment_receita_item_detail_frament" >
+        <action
+            android:id="@+id/action_receitaItemDetailFrament_to_editDeleteReceitaFragment"
+            app:destination="@id/editDeleteReceitaFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createNewReceitaFragment"
         android:name="com.example.stockapp.ui.receita.CreateNewReceitaFragment"
@@ -46,6 +50,14 @@
             app:destination="@id/fragment_home"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editDeleteReceitaFragment"
+        android:name="EditDeleteReceitaFragment"
+        android:label="EditDeleteReceitaFragment" >
+        <action
+            android:id="@+id/action_editDeleteReceitaFragment_to_fragment_home"
+            app:destination="@id/fragment_home" />
     </fragment>
 
 </navigation>

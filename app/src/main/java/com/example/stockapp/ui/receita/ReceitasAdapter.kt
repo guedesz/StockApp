@@ -31,15 +31,15 @@ class ReceitasAdapter(
     override fun onBindViewHolder(holder: ReceitasViewHolder, position: Int) {
         val receita = receitas[position]
 
-        Firebase.storage.getReference(receita.photo).downloadUrl
-            .addOnSuccessListener { imageUrl ->
-                holder.imgPhoto.load(imageUrl)
-            }
-            .addOnFailureListener { exception ->
-                // Tratamento de erro ao obter a URL da imagem
-                // Aqui você pode lidar com o erro, seja registrando, notificando o usuário, etc.
-                println("Erro ao obter URL da imagem: $exception")
-            }
+//        Firebase.storage.getReference(receita.photo).downloadUrl
+//            .addOnSuccessListener { imageUrl ->
+//                holder.imgPhoto.load(imageUrl)
+//            }
+//            .addOnFailureListener { exception ->
+//                // Tratamento de erro ao obter a URL da imagem
+//                // Aqui você pode lidar com o erro, seja registrando, notificando o usuário, etc.
+//                println("Erro ao obter URL da imagem: $exception")
+//            }
 
         holder.txtName.text = receita.name
         holder.txtCalories.text = receita.calories.toString()
