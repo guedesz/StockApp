@@ -93,7 +93,7 @@ class EditDeleteReceitaFragment : Fragment() {
 
                         Toast.makeText(context,  viewModel.receita.name + " deletado com sucesso!", Toast.LENGTH_SHORT).show()
 
-                        viewModel.delete(viewModel.receita.docId)
+                        viewModel.delete(viewModel.receita)
 
                         val action = EditDeleteReceitaFragmentDirections.actionEditDeleteReceitaFragmentToFragmentHome();
                         findNavController().navigate(action)

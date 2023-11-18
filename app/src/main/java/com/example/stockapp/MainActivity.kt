@@ -1,13 +1,14 @@
 package com.example.stockapp
 
-import android.R
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.stockapp.databinding.ActivityMainBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -22,5 +23,30 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(_binding.fragmentHome.id) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(_binding.bottomView, navController)
+////
+        // Configurações do Firestore
+        val firestore = FirebaseFirestore.getInstance()
+
+        // Desativa o cache
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+            .setPersistenceEnabled(false)
+            .build()
+
+        firestore.firestoreSettings = settings
+//        val settings = FirebaseFirestoreSettings.Builder()
+//            .setPersistenceEnabled(false)
+//            .build()
+//
+//        FirebaseFirestore.getInstance().firestoreSettings = settings
+
+        FirebaseFirestore.getInstance().clearPersistence()
+            .addOnSuccessListener {
+                // Cache foi limpo com sucesso
+                println("CACHED CLEARED")
+            }
+            .addOnFailureListener {
+                println("CACHED CLEAR FAIL")
+            }
     }
 }

@@ -28,6 +28,7 @@ class ReceitasViewModel
         viewModelScope.launch {
             repository.receitas.collect { firebaseReceitas ->
                 if (!isUpdatingLocalData) {
+                    println("FIREBASE INIT")
                     isUpdatingLocalData = true
                     localRepository.updateLocalData(firebaseReceitas)
                     isUpdatingLocalData = false
@@ -38,6 +39,7 @@ class ReceitasViewModel
         viewModelScope.launch {
             localRepository.receitas.collect { localReceitas ->
                 if (!isUpdatingLocalData) {
+                    println("LOCAL INIT")
                     _receitas.value = localReceitas
                 }
             }
@@ -62,10 +64,10 @@ class ReceitasViewModel
         new()
     }
 
-    fun delete(id: String) = viewModelScope.launch {
+    fun delete(receita: Receita) = viewModelScope.launch {
         println("receita deleted from database")
-        repository.delete(id)
-        localRepository.delete(id)
+        repository.delete(receita)
+        localRepository.delete(receita)
         new()
     }
 }

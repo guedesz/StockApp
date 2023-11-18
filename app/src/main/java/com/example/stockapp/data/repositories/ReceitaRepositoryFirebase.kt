@@ -59,8 +59,8 @@ class ReceitaRepositoryFirebase
 
     }
 
-    override suspend fun delete(id: String) {
-        receitasRef.document(id).delete()
+    override suspend fun delete(receita: Receita) {
+        receitasRef.document(receita.docId).delete()
             .addOnFailureListener { e ->
                 // Handle the failure, log, or notify the user
                 println("Error deleting receita: $e")

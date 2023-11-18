@@ -23,9 +23,9 @@
         android:label="fragment_receitas"
         tools:layout="@layout/fragment_receitas" >
 
-    <argument
-        android:name="categoryName"
-        app:argType="string" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
         <action
             android:id="@+id/action_receitasFragment_to_receitaItemDetailFrament"
             app:destination="@id/receitaItemDetailFrament" />
@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/editDeleteReceitaFragment"
         android:name="EditDeleteReceitaFragment"
-        android:label="EditDeleteReceitaFragment" >
+        android:label="editDeleteReceitaFragment">
         <action
             android:id="@+id/action_editDeleteReceitaFragment_to_fragment_home"
             app:destination="@id/fragment_home" />

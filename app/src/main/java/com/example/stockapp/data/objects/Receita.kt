@@ -8,12 +8,6 @@ import com.example.stockapp.data.objects.Category
 
 @Entity(
     tableName = "receitas",
-//    foreignKeys = [ForeignKey(
-//        entity = Category::class,
-//        parentColumns = ["id"],
-//        childColumns = ["category_id"]
-//    )],
-//    indices = [Index("category_id")]
 )
 
 data class Receita(
