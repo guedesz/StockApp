@@ -19,29 +19,41 @@ class ReceitaRepositorySQlite
 
     override suspend fun set(receita: Receita) {
         if (receita.id == 0){
-            receitaDao.set(receita)
+            var id = receitaDao.set(receita)
+            receita.id = id.toInt()
         } else {
             receitaDao.update(receita)
         }
+    }
+
+    suspend fun updateLocalData(receitas: List<Receita>) {
+        // Clear existing local data
+        receitaDao.deleteAll()
+
+        // Insert new data from Firebase
+        receitas.forEach { receita ->
+            receitaDao.set(receita)
+        }
+
     }
 
     override suspend fun delete(id: String){
         receitaDao.delete(id.toInt())
     }
 
-    init {
-        CoroutineScope(Job()).launch {
-            receitaDao.deleteAll()
-            Log.i("Receita", "-----------> Limpou a base de dados!")
-            //delay(15000)
-            val receitas = receitas()
-            for(r in receitas){
-                receitaDao.set(r)
-            }
-            Log.i("Receita", "-----------> Inseriu dados na base!")
-        }
-
-    }
+//    init {
+//        CoroutineScope(Job()).launch {
+//            receitaDao.deleteAll()
+//            Log.i("Receita", "-----------> Limpou a base de dados!")
+//            //delay(15000)
+//            val receitas = receitas()
+//            for(r in receitas){
+//                receitaDao.set(r)
+//            }
+//            Log.i("Receita", "-----------> Inseriu dados na base!")
+//        }
+//
+//    }
 
     companion object {
         fun receitas(): MutableList<Receita> {

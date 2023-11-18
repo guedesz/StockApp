@@ -10,7 +10,7 @@ import com.example.stockapp.data.objects.Category
 import com.example.stockapp.data.objects.Receita
 import kotlin.concurrent.Volatile
 
-@Database(entities = [Category::class, Receita::class], version = 2)
+@Database(entities = [Category::class, Receita::class], version = 3)
 abstract class BancoSQLite : RoomDatabase() {
 
     abstract fun categoryDao(): CategoryDao
@@ -27,7 +27,7 @@ abstract class BancoSQLite : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         BancoSQLite::class.java,
-                        "banco.db"
+                        "banco3.db"
                     ).build()
                 }
             }
