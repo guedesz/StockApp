@@ -9,7 +9,7 @@ interface ReceitaDao {
 
     @Query("select * from receitas")
     fun list(): Flow<List<Receita>>
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert//(onConflict =OnConflictStrategy.REPLACE)
     suspend fun set(receita: Receita): Long
     @Update
     suspend fun update(receita: Receita)
