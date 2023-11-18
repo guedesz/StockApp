@@ -1,13 +1,8 @@
 package com.example.stockapp.data.repositories
 
-import android.util.Log
 import com.example.stockapp.data.objects.Receita
 import com.example.stockapp.data.daos.ReceitaDao
-import com.example.stockapp.data.objects.Category
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ReceitaRepositorySQlite
@@ -26,6 +21,25 @@ class ReceitaRepositorySQlite
         }
     }
 
+    suspend fun getDeletedReceitas(): List<Receita> {
+        return receitaDao.getDeletedReceitas()
+    }
+    suspend fun getUnsyncedReceitas(): List<Receita> {
+        return receitaDao.getUnsyncedReceitas()
+    }
+
+    // Método para atualizar o status de sincronização de várias receitas
+    suspend fun updateSyncStatus(receitas: List<Receita>, isSynced: Boolean) {
+        for (receita in receitas) {
+            receita.isSynced = isSynced
+
+            if (receita.isDeleted) {
+                receitaDao.delete(receita.id)
+            }
+        }
+        receitaDao.updateReceitas(receitas)
+    }
+
     suspend fun updateLocalData(receitas: List<Receita>) {
         // Clear existing local data
         receitaDao.deleteAll()
@@ -36,8 +50,11 @@ class ReceitaRepositorySQlite
         }
 
     }
+
     override suspend fun delete(receita: Receita){
-        receitaDao.delete(receita.id)
+        receita.isDeleted = true
+        set(receita)
+        //receitaDao.delete(receita.id)
     }
 
 }

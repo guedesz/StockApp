@@ -20,10 +20,6 @@ class MainActivity : AppCompatActivity() {
         val view = _binding.root
         setContentView(view)
 
-        val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(_binding.fragmentHome.id) as NavHostFragment
-        val navController = navHostFragment.navController
-        NavigationUI.setupWithNavController(_binding.bottomView, navController)
-////
         // Configurações do Firestore
         val firestore = FirebaseFirestore.getInstance()
 
@@ -33,13 +29,9 @@ class MainActivity : AppCompatActivity() {
             .setPersistenceEnabled(false)
             .build()
 
-        firestore.firestoreSettings = settings
-//        val settings = FirebaseFirestoreSettings.Builder()
-//            .setPersistenceEnabled(false)
-//            .build()
-//
-//        FirebaseFirestore.getInstance().firestoreSettings = settings
 
+
+        firestore.firestoreSettings = settings
         FirebaseFirestore.getInstance().clearPersistence()
             .addOnSuccessListener {
                 // Cache foi limpo com sucesso
@@ -48,5 +40,10 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener {
                 println("CACHED CLEAR FAIL")
             }
+
+
+        val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(_binding.fragmentHome.id) as NavHostFragment
+        val navController = navHostFragment.navController
+        NavigationUI.setupWithNavController(_binding.bottomView, navController)
     }
 }

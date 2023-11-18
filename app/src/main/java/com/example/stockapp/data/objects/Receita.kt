@@ -20,7 +20,9 @@ data class Receita(
     var calories: Int,
     var likes: Int,
     var photo: String,
-    var category_id: Int
+    var category_id: Int,
+    var isSynced: Boolean,
+    var isDeleted: Boolean
 )
 
 {
@@ -33,6 +35,8 @@ data class Receita(
         0,
         0,
         "semfoto.jpg",
-        0
+        0,
+        false,
+        false
     )
 }

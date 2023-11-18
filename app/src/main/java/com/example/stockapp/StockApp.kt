@@ -36,6 +36,12 @@ class StockApp : Application() {
         return ReceitaRepositorySQlite(receitaDao)
     }
 
+    @Singleton
+    @Provides
+    fun provideContext(@ApplicationContext context: Context): Context {
+        return context
+    }
+
     @Provides
     fun provideCategoryRepository(categoryDao: CategoryDao) : CategoryRepositorySQlite {
         return CategoryRepositorySQlite(categoryDao)

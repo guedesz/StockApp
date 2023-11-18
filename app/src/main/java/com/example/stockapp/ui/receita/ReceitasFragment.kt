@@ -106,7 +106,7 @@ class ReceitasFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.receitas.collect{ receitas ->
 
-                    val receitasFiltradas = receitas.filter { it.category_id == categoryIdFragment.id }
+                    val receitasFiltradas = receitas.filter { it.category_id == categoryIdFragment.id }.filterNot { it.isDeleted }
 
                     if (binding.receitasRecycler is RecyclerView) {
                         val recyclerView = binding.receitasRecycler
