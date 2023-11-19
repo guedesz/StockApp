@@ -48,15 +48,16 @@ class ReceitasViewModel
     }
 
     fun loadBase() {
-        viewModelScope.launch {
-            repository.receitas.collect { firebaseReceitas ->
-                if (!isUpdatingLocalData) {
-                    isUpdatingLocalData = true
-                    localRepository.updateLocalData(firebaseReceitas)
-                    isUpdatingLocalData = false
-                }
-            }
-        }
+//        viewModelScope.launch {
+//            repository.receitas.collect { firebaseReceitas ->
+//                println("RECEITAS FIREBASE" + firebaseReceitas)
+//                if (!isUpdatingLocalData) {
+//                    isUpdatingLocalData = true
+//                    localRepository.updateLocalData(firebaseReceitas)
+//                    isUpdatingLocalData = false
+//                }
+//            }
+//        }
 
         viewModelScope.launch {
             localRepository.receitas.collect { localReceitas ->
@@ -71,8 +72,6 @@ class ReceitasViewModel
         // Obtém todas as receitas não sincronizadas do banco local
 
         val unsyncedReceitas = localRepository.getUnsyncedReceitas()
-
-        println("Pegando receitas não syncadas" + unsyncedReceitas)
 
         // Sincroniza cada receita não sincronizada com o Firebase
         for (receita in unsyncedReceitas) {
@@ -106,17 +105,19 @@ class ReceitasViewModel
 
     fun set() = viewModelScope.launch {
         println("receita saved in database")
-        println(receita)
 
         receita.isSynced = false
-        localRepository.set(receita)
 
-        if (isNetworkAvailable(context)) {receita.isSynced = true
+        if (isNetworkAvailable(context)) {
+            receita.isSynced = true
             repository.set(receita)
             println("passou pelo Firebase")
         } else {
             println("Sem conexão de internet. Operação no Firebase adiada.")
         }
+
+        localRepository.set(receita)
+        println(receita)
 
         new()
     }
@@ -125,15 +126,16 @@ class ReceitasViewModel
         println("receita deleted from database")
 
         receita.isSynced = false
-        localRepository.delete(receita)
 
         if (isNetworkAvailable(context)) {
-            repository.delete(receita)
             receita.isSynced = true
+            repository.delete(receita)
             println("passou pelo Firebase")
         } else {
             println("Sem conexão de internet. Operação no Firebase adiada.")
         }
+
+        localRepository.delete(receita)
 
         new()
     }

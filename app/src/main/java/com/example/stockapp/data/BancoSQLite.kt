@@ -21,16 +21,18 @@ abstract class BancoSQLite : RoomDatabase() {
         private var INSTANCE: BancoSQLite? = null
 
         fun get(context: Context): BancoSQLite {
+
             if (INSTANCE == null) {
 
                 synchronized(this){
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         BancoSQLite::class.java,
-                        "banco8.db"
+                        "banco13.db"
                     ).build()
                 }
             }
+
             return INSTANCE!!
         }
 

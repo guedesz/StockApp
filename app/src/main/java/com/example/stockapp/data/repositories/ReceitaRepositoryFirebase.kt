@@ -40,33 +40,34 @@ class ReceitaRepositoryFirebase
 
     override suspend fun set(receita: Receita) {
         try {
-
-            val doc = if (receita.docId.isNullOrEmpty()) {
-                receitasRef.document().set(receita)
+            if (receita.docId.isNullOrEmpty()) {
+                // Se o docId estiver vazio ou nulo, é uma nova receita, então crie um novo documento
+                val docRef = receitasRef.add(receita).await()
+                receita.docId = docRef.id
             } else {
-                receitasRef.document(receita.docId!!).set(receita)
+                // Se o docId já estiver definido, atualize o documento existente
+                receitasRef.document(receita.docId!!).set(receita).await()
             }
-//            val docRef = receitasRef.add(receita).await()
-//
-//            // Atualizar o campo id na sua classe Receita, caso seja um número inteiro
 
-            println("Receita salva com sucesso!")
+            println("Receita salva com sucesso! DocId: ${receita.docId}")
         } catch (e: Exception) {
-            // Handle the exception, log, or notify the user
-            println("Error setting receita: $e")
+            // Lide com a exceção, faça log ou notifique o usuário
+            println("Erro ao definir a receita: $e")
             throw e
         }
-
     }
 
     override suspend fun delete(receita: Receita) {
+
         receitasRef.document(receita.docId).delete()
+            .addOnSuccessListener {
+                receita.docId = ""
+            }
+
             .addOnFailureListener { e ->
                 // Handle the failure, log, or notify the user
                 println("Error deleting receita: $e")
             }
 
     }
-
-
 }

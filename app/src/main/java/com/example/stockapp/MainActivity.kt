@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
             .build()
 
 
-
         firestore.firestoreSettings = settings
         FirebaseFirestore.getInstance().clearPersistence()
             .addOnSuccessListener {

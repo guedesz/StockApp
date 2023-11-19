@@ -37,6 +37,7 @@ class ReceitaRepositorySQlite
                 receitaDao.delete(receita.id)
             }
         }
+
         receitaDao.updateReceitas(receitas)
     }
 
@@ -48,13 +49,17 @@ class ReceitaRepositorySQlite
         receitas.forEach { receita ->
             receitaDao.set(receita)
         }
-
     }
 
     override suspend fun delete(receita: Receita){
-        receita.isDeleted = true
+
+        if (receita.isSynced || receita.docId.isNullOrEmpty()) {
+            receitaDao.delete(receita.id)
+        } else {
+            receita.isDeleted = true
+        }
+
         set(receita)
-        //receitaDao.delete(receita.id)
     }
 
 }

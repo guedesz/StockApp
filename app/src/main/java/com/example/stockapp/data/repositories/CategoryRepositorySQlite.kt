@@ -28,7 +28,7 @@ class CategoryRepositorySQlite
     }
 
     override suspend fun getCategoryById(id: Int): Category {
-        TODO("Not yet implemented")
+        return categoryDao.getCategoryById(id)
     }
 
     override suspend fun set(category: Category) {
@@ -46,13 +46,14 @@ class CategoryRepositorySQlite
     init {
         CoroutineScope(Job()).launch {
             categoryDao.deleteAll()
-            Log.i("Test", "-----------> Limpou a base de dados!")
+            Log.i("Categorias", "-----------> Limpou a base de dados!")
             //delay(15000)
             val categories = categories()
             for(p in categories){
                 categoryDao.set(p)
             }
-            Log.i("Test", "-----------> Inseriu dados na base!")
+
+            Log.i("Categorias", "-----------> Inseriu dados na base!")
         }
 
     }
