@@ -18,6 +18,8 @@ interface ReceitaDao {
     @Query("delete from receitas")
     suspend fun deleteAll()
 
+    @Query("SELECT * FROM receitas WHERE docId = :docId")
+    suspend fun getReceitaByDocId(docId: String): Receita?
     @Query("SELECT * FROM receitas WHERE id = :id")
     suspend fun getReceitaById(id: Int): Receita?
 

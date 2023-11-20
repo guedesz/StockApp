@@ -3,6 +3,10 @@ package com.example.stockapp.data.repositories
 import com.example.stockapp.data.objects.Receita
 import com.example.stockapp.data.daos.ReceitaDao
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.toList
 import javax.inject.Inject
 
 class ReceitaRepositorySQlite
@@ -46,8 +50,20 @@ class ReceitaRepositorySQlite
         receitaDao.deleteAll()
 
         // Insert new data from Firebase
+        // Insert new data from Firebase, avoiding duplicates
         receitas.forEach { receita ->
-            receitaDao.set(receita)
+            // Check if a recipe with the same document ID already exists
+            val existingRecipe = receitaDao.getReceitaByDocId(receita.docId)
+
+            println(receita.docId)
+
+            if (existingRecipe == null) {
+                // Recipe with the same ID doesn't exist, insert it
+                receitaDao.set(receita)
+            } else {
+                // Recipe with the same ID already exists, handle accordingly (update or skip)
+                // Example: receitaDao.update(existingRecipe)
+            }
         }
     }
 
@@ -60,6 +76,12 @@ class ReceitaRepositorySQlite
         }
 
         set(receita)
+    }
+
+    override suspend fun getReceitas(): List<Receita> {
+        return receitaDao.list()
+            .flatMapConcat { it.asFlow() }
+            .toList()
     }
 
 }

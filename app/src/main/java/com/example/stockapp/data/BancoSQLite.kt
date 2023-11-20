@@ -28,7 +28,7 @@ abstract class BancoSQLite : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         BancoSQLite::class.java,
-                        "banco17.db"
+                        "banco24.db"
                     ).build()
                 }
             }

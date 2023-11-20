@@ -3,6 +3,7 @@ package com.example.stockapp.data.repositories
 import com.example.stockapp.data.objects.Category
 import com.example.stockapp.data.objects.Receita
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -69,4 +70,25 @@ class ReceitaRepositoryFirebase
             }
 
     }
+
+    private val firestore = FirebaseFirestore.getInstance()
+    private val receitasCollection = firestore.collection("receitas")
+
+    override suspend fun getReceitas(): List<Receita> {
+        return try {
+            val querySnapshot = receitasCollection.get().await()
+            val receitas = mutableListOf<Receita>()
+
+            for (document in querySnapshot.documents) {
+                val receita = document.toObject(Receita::class.java)
+                receita?.let { receitas.add(it) }
+            }
+
+            receitas
+        } catch (e: Exception) {
+            // Handle exceptions (e.g., network issues, data parsing)
+            emptyList()
+        }
+    }
 }
+

@@ -11,6 +11,9 @@ import com.example.stockapp.data.objects.Receita
 import com.example.stockapp.data.repositories.ReceitaRepository
 import com.example.stockapp.data.repositories.ReceitaRepositorySQlite
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Delay
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,7 +25,6 @@ class ReceitasViewModel
     val repository: ReceitaRepository,
     val localRepository: ReceitaRepositorySQlite,
     val context: Context,
-    val receitasDao: ReceitaDao
 ) : ViewModel() {
 
     var receita: Receita = Receita()
@@ -60,14 +62,19 @@ class ReceitasViewModel
             repository.receitas.collect { firebaseReceitas ->
                 println("RECEITAS FIREBASE" + firebaseReceitas)
 
+                _receitas.value = firebaseReceitas
+
                 if (isNetworkAvailable(context)) {
+                    println("UPDATING LOCAL")
                     localRepository.updateLocalData(firebaseReceitas)
                 }
-                _receitas.value = firebaseReceitas
+
+
             }
         }
 
         viewModelScope.launch {
+
             localRepository.receitas.collect { localReceitas ->
                 if (!isUpdatingLocalData) {
                     _receitas.value = localReceitas
@@ -115,7 +122,7 @@ class ReceitasViewModel
         println("receita saved in database")
 
         receita.isSynced = false
-
+        localRepository.set(receita)
         if (isNetworkAvailable(context)) {
             receita.isSynced = true
             repository.set(receita)
@@ -124,7 +131,6 @@ class ReceitasViewModel
             println("Sem conexão de internet. Operação no Firebase adiada.")
         }
 
-        localRepository.set(receita)
         println(receita)
 
         new()
@@ -135,6 +141,7 @@ class ReceitasViewModel
 
         receita.isSynced = false
 
+        localRepository.delete(receita)
         if (isNetworkAvailable(context)) {
             receita.isSynced = true
             repository.delete(receita)
@@ -142,8 +149,6 @@ class ReceitasViewModel
         } else {
             println("Sem conexão de internet. Operação no Firebase adiada.")
         }
-
-        localRepository.delete(receita)
 
         new()
     }

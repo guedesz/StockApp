@@ -8,4 +8,5 @@ interface ReceitaRepository {
     val receitas: Flow<List<Receita>>
     suspend fun set(receita: Receita)
     suspend fun delete(receita: Receita)
+    suspend fun getReceitas(): List<Receita>
 }
