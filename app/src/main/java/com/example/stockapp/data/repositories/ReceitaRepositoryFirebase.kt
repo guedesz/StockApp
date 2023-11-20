@@ -22,20 +22,19 @@ class ReceitaRepositoryFirebase
     init {
         receitasRef.addSnapshotListener { snapshot, _ ->
             if(snapshot != null){
-                var notes = mutableListOf<Receita>()
+                var receitas = mutableListOf<Receita>()
                 snapshot.documents.forEach{ doc ->
-                    val note = doc.toObject<Receita>()
-                    if (note != null){
-                        note.docId = doc.id
-                        notes.add(note)
+                    val receita = doc.toObject<Receita>()
+                    if (receita != null){
+                        receita.docId = doc.id
+                        receitas.add(receita)
                     }
                 }
-                _receitas.value = notes
+                _receitas.value = receitas
             }else{
                 _receitas = MutableStateFlow(listOf())
             }
         }
-
     }
 
     override suspend fun set(receita: Receita) {

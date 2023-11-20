@@ -18,7 +18,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReceitasViewModel
-@Inject constructor(val repository: ReceitaRepository, val localRepository: ReceitaRepositorySQlite, val context: Context, val receitasDao: ReceitaDao) : ViewModel() {
+@Inject constructor(
+    val repository: ReceitaRepository,
+    val localRepository: ReceitaRepositorySQlite,
+    val context: Context,
+    val receitasDao: ReceitaDao
+) : ViewModel() {
 
     var receita: Receita = Receita()
 
@@ -35,12 +40,14 @@ class ReceitasViewModel
     }
 
     private fun iniciarObservacaoConectividade() {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
                 syncWithFirebase()
+
             }
         }
 
@@ -48,16 +55,17 @@ class ReceitasViewModel
     }
 
     fun loadBase() {
-//        viewModelScope.launch {
-//            repository.receitas.collect { firebaseReceitas ->
-//                println("RECEITAS FIREBASE" + firebaseReceitas)
-//                if (!isUpdatingLocalData) {
-//                    isUpdatingLocalData = true
-//                    localRepository.updateLocalData(firebaseReceitas)
-//                    isUpdatingLocalData = false
-//                }
-//            }
-//        }
+
+        viewModelScope.launch {
+            repository.receitas.collect { firebaseReceitas ->
+                println("RECEITAS FIREBASE" + firebaseReceitas)
+
+                if (isNetworkAvailable(context)) {
+                    localRepository.updateLocalData(firebaseReceitas)
+                }
+                _receitas.value = firebaseReceitas
+            }
+        }
 
         viewModelScope.launch {
             localRepository.receitas.collect { localReceitas ->
